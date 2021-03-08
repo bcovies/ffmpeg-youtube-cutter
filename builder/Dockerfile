@@ -7,9 +7,13 @@ RUN apt-get -y update && \
     apt-get install -y curl 
     
 RUN mkdir -p /home/download && \
-    mkdir -p /home/scripts 
-COPY --chown=root:root ./download-and-cut.sh /home/scripts
-COPY --chown=root:root ./php/info.php /var/www/html
-COPY --chown=root:root ./php/action.php /var/www/html
-RUN chmod 700 -R /home/scripts/download-and-cut.sh 
+    mkdir -p /home/scripts
+
+COPY --chown=1000:1000 ./php/index.html /var/www/html
+COPY --chown=1000:1000 ./php/action.php /var/www/html
+COPY --chown=1000:1000 ./download-and-cut.sh /home/scripts
+
+RUN chmod 777 -R /home/scripts/download-and-cut.sh  && \
+    chmod 777 -R /home/download 
+      
 
